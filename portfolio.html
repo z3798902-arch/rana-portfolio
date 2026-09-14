@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Video Editor</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: .5;
+            z-index: -1;
+        }
+
+        .shape.one {
+            width: 300px;
+            height: 300px;
+            background: #c69c6d;
+            top: -100px;
+            left: -100px;
+            animation: float1 7s infinite alternate;
+        }
+
+        .shape.two {
+            width: 250px;
+            height: 250px;
+            background: #59452f;
+            right: -80px;
+            top: 40%;
+            animation: float2 8s infinite alternate;
+        }
+
+        .shape.three {
+            width: 180px;
+            height: 180px;
+            background: #8c6b45;
+            bottom: -50px;
+            left: 30%;
+            animation: float3 6s infinite alternate;
+        }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .hero {
+            animation: show 1.5s ease;
+        }
+
+        .small {
+            color: #c9a36a;
+            letter-spacing: 5px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(55px, 10vw, 110px);
+            line-height: .9;
+        }
+
+        h1 span {
+            color: #c9a36a;
+            display: block;
+        }
+
+        .hero p {
+            color: #aaa;
+            font-size: 18px;
+            margin: 30px 0;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 16px 35px;
+            background: #c9a36a;
+            color: #111;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: bold;
+            transition: .4s;
+        }
+
+        .hero-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #c9a36a;
+        }
+
+        .work {
+            padding: 100px 7%;
+            background: rgba(255,255,255,.03);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .title h2 {
+            font-size: 50px;
+        }
+
+        .title span {
+            color: #c9a36a;
+        }
+
+        .title p {
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .videos {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 300px;
+            background: #1c1c1c;
+            padding: 12px;
+            border-radius: 20px;
+            transition: .5s;
+            animation: cardShow 1s ease;
+        }
+
+        .card:nth-child(1) {
+            transform: rotate(-3deg);
+        }
+
+        .card:nth-child(2) {
+            transform: translateY(-25px);
+        }
+
+        .card:nth-child(3) {
+            transform: rotate(3deg);
+        }
+
+        .card:hover {
+            transform: translateY(-20px) scale(1.06) rotate(0);
+            box-shadow: 0 20px 50px rgba(201,163,106,.3);
+        }
+
+        video {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .card h3 {
+            padding: 15px 8px 5px;
+        }
+
+        .card p {
+            padding: 0 8px 12px;
+            color: #888;
+        }
+
+        .contact {
+            text-align: center;
+            padding: 130px 20px;
+        }
+
+        .contact h2 {
+            font-size: clamp(45px, 7vw, 80px);
+            margin-bottom: 20px;
+        }
+
+        .contact h2 span {
+            color: #c9a36a;
+        }
+
+        .contact p {
+            color: #999;
+            margin-bottom: 35px;
+        }
+
+        .whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 30px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: .4s;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 35px rgba(37,211,102,.5);
+        }
+
+        .whatsapp-icon {
+            font-size: 22px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #090909;
+            color: #777;
+        }
+
+        footer span {
+            color: #c9a36a;
+        }
+
+        @keyframes show {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardShow {
+
+            from {
+                opacity: 0;
+                transform: translateY(80px);
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+        @keyframes float1 {
+
+            from {
+                transform: translate(0,0) rotate(0);
+            }
+
+            to {
+                transform: translate(150px,120px) rotate(180deg);
+            }
+
+        }
+        @keyframes float2 {
+
+            from {
+                transform: translate(0,0);
+            }
+
+            to {
+                transform: translate(-120px,100px);
+            }
+
+        }
+
+        @keyframes float3 {
+
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-150px);
+            }
+
+        }
+
+        @keyframes pulse {
+
+            0% {
+                box-shadow: 0 0 0 0 rgba(37,211,102,.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(37,211,102,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37,211,102,0);
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .card {
+                width: 90%;
+            }
+
+            .card:nth-child(1),
+            .card:nth-child(2),
+            .card:nth-child(3) {
+                transform: none;
+            }
+
+            .title h2 {
+                font-size: 38px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="shape one"></div>
+    <div class="shape two"></div>
+    <div class="shape three"></div>
+    <header>
+        <div class="hero">
+
+            <div class="small">
+                VIDEO EDITOR
+            </div>
+
+            <h1>
+                Rana
+                <span>Abdo</span>
+            </h1>
+
+            <p>
+                Turning ideas into creative visual stories.
+            </p>
+
+            <a href="#work" class="hero-button">
+                Explore My Work
+            </a>
+
+        </div>
+
+    </header>
+
+    <section class="work" id="work">
+
+        <div class="title">
+
+            <h2>
+                My <span>Work</span>
+            </h2>
+
+            <p>
+                Some of my favorite video editing projects.
+            </p>
+
+        </div>
+
+
+        <div class="videos">
+
+            <div class="card">
+
+                <video controls>
+
+                    <source src="cupcut.mp4" type="video/mp4">
+
+                </video>
+
+                <h3>
+                    Creative Edit
+                </h3>
+
+                <p>
+                    Social Media Video
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <video controls>
+
+                    <source src="doctor.mp4" type="video/mp4">
+
+                </video>
+
+                <h3>
+                    Cinematic Edit
+                </h3>
+
+                <p>
+                    Travel & Lifestyle
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <video controls>
+
+                    <source src="Analsis.mp4" type="video/mp4">
+
+                </video>
+
+                <h3>
+                    Reels Edit
+                </h3>
+
+                <p>
+                    Short Form Content
+                </p>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <section class="contact">
+
+        <h2>
+            Let's <span>Work</span> Together
+        </h2>
+
+        <p>
+            Have a project in mind? Contact me directly on WhatsApp.
+        </p>
+
+        <a
+            href="https://wa.me/01015425300?text=Hello%20Rana%2C%20I%27m%20interested%20in%20your%20video%20editing%20services."
+            class="whatsapp"
+            target="_blank">
+
+            <span class="whatsapp-icon">◉</span>
+
+            WhatsApp 
+        </a>
+
+    </section>
+
+    <footer>
+
+        <span>Rana Abdo</span>
+        Video Editor
+
+    </footer>
+</body>
+
+</html>
+
